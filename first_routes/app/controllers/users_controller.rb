@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_attributes)
+    user = User.new(user_params)
     if user.save
       render json: user
     else
@@ -16,15 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
-
     render json: User.find(params[:id])
   end
 
   def update
-    # debugger
-
-    render json: User.update(params[:id], name: params[:name])
-    # redirect_to index
+    render json: User.update(params[:id], user_params)
   end
 
   def destroy
@@ -33,8 +29,8 @@ class UsersController < ApplicationController
   end
 
   private
-  def user_attributes
-    params.require(:user).permit(:name, :email)
+  def user_params
+    params.require(:user).permit(:username)
   end
 
 end
